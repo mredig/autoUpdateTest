@@ -1,5 +1,3 @@
 #!/usr/bin/perl
 
-open FILE, ">>update.log";
-print FILE "preflight!\n";
-close FILE;
+$output = `say Pre flight`;
