@@ -169,7 +169,7 @@ sub deriveProjectName {
 }
 
 sub deployCleanup {
-	my $fullExecPath = $execDir/$thisScript;
+	my $fullExecPath = "$execDir/$thisScript";
 	my $delete = &checkYn("Delete installer '$fullExecPath'?");
 	if ($delete && $debug == 0) {
 		unlink $fullExecPath;
