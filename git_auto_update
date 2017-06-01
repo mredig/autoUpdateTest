@@ -10,6 +10,7 @@ $cronTimer = "* * * * *"; ## r0-59 means random 0-59
 $projectName = "";
 $thisScript = &getExecutableName;
 $thisDir = &getExecutableDirectory;
+$ENV{'PATH'} .= ":/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin";
 
 &main;
 
@@ -119,7 +120,7 @@ sub cloneGit {
 	}
 	chdir $thisDir;
 	&runOnSystem("git clone $originRepo");
-	chdir $projectName;
+	chdir $projectName or print "cant chdir to $projectName: $!";
 	&runOnSystem("git submodule update --init --recursive")
 }
 
