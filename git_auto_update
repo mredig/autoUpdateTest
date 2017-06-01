@@ -119,6 +119,7 @@ sub cloneGit {
 	}
 	chdir $thisDir;
 	&runOnSystem("git clone $originRepo");
+	chdir $projectName;
 	&runOnSystem("git submodule update --init --recursive")
 }
 
