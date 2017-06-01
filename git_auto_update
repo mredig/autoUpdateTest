@@ -38,6 +38,7 @@ sub processArguments {
 
 	if ($processedArguments{'install'} == 1) {
 		## start install here
+		&deriveProjectName;
 		&printIntro;
 		&deriveProjectName;
 		&cloneGit;
@@ -102,12 +103,19 @@ sub runPostflightScript {
 ## INSTALL AND DEPLOY
 
 sub printIntro {
-	my $answer = &checkyN("Please confirm you want to install into the directory '$thisDir'");
+	my $prompt;
+	if ($projectName ne "") {
+		$prompt = "Please confirm you want to install $projectName into the directory '$thisDir'";
+	} else {
+		$prompt = "Please confirm you want to install into the directory '$thisDir'";
+	}
+
+	my $answer = &checkyN($prompt);
 	if ($answer == 0) {
 		die "Please move the installer into the directory you want to install into.\n";
 	}
 	my $thisUser = getlogin;
-	my $userAnswer = &checkyN("Please confirm you want to install this into $thisUser" . "'s crontab");
+	my $userAnswer = &checkyN("Please confirm you want to install into $thisUser" . "'s crontab");
 	if ($userAnswer == 0) {
 		die "Please run the installer as the user you want it to run as.\n";
 	}
