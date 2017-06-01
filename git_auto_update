@@ -39,8 +39,8 @@ sub processArguments {
 	if ($processedArguments{'install'} == 1) {
 		## start install here
 		&printIntro;
-		&cloneGit;
 		&deriveProjectName;
+		&cloneGit;
 		&setupUpdateChecks;
 		&deployCleanup;
 	} elsif ($processedArguments{'update'} == 1) {
