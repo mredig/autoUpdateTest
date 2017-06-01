@@ -1,3 +1,4 @@
 #!/bin/sh
 
-say Post flight;
+echo "postflight" >> update.log
+pwd >> update.log
