@@ -205,6 +205,35 @@ sub deployCleanup {
 
 }
 
+## uninstall
+
+sub removeCron {
+	my @previousCron = `crontab -l`;
+
+	my $execPath = $execDir . "/$thisScript";
+	my $newCron;
+	foreach my $cronEntry (@previousCron) {
+		$cronEntry =~ /^(.*$execPath -u.*)$/\#\t$1\t\#\# disabled cron entry from uninstall. safe to delete./;
+		$newCron .= $cronEntry;
+	}
+
+	open my $cronFH, "| crontab -" or die "can't open crontab: $!"; ## reference: https://stackoverflow.com/questions/18133498/how-to-use-perl-to-modify-crontab
+	print $cronFH "$newCron";
+	close $cronFH;
+}
+
+sub runUninstallScript {
+	if (-e $uninstallScript) {
+		my $fullScriptPath = abs_path($uninstallScript);
+		&runOnSystem($fullScriptPath);
+		print "Autoupdater turned off and uninstall script run. Thank you for using GitAutoUpdate!\n";
+	} else {
+		print "No uninstall script found. Autoupdater turned off, but if necessary, please perform any manual cleanup required. Thank you for using GitAutoUpdate!\n";
+	}
+}
+
+
+
 ## support subroutines
 
 sub runOnSystem { ## executes system command and communicates to user what it's doing - be sure to be careful of arbitrary code execution
