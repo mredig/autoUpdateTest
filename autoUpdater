@@ -34,9 +34,14 @@ sub processArguments {
 		}
 	}
 	if ($processedArgument == 0) {
-		# &checkyN("No arguments supplied.")
-		die "Usage: $thisScript [options]\n";
+		my $install = &checkyN("No arguments supplied. Would you like to run the install?");
+		if ($install) {
+			$processedArguments{'install'} = 1;
+		} else {
+			die "Usage: $thisScript [options]\nOPTIONS:\n\t-i install the software\n\t-u upgrade the repository\n\t-d debug mode - won't make any permanent changes and increases verbosity\n\n";
+		}
 	}
+
 	if ($processedArguments{'debug'} == 1) {
 		$debug = 1;
 	}
