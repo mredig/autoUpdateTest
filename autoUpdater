@@ -66,7 +66,14 @@ sub processArguments {
 		&runPreflightScript;
 		&gitPull;
 		&runPostflightScript;
+	} elsif ($processedArguments{'uninstall'} == 1) {
+		## run uninstall here
+		&chdirToRepo;
+		&removeCron;
+		&runUninstallScript;
 	}
+
+
 }
 
 sub processArgument {
@@ -85,6 +92,11 @@ sub processArgument {
 		$processedArgument = 1;
 		print "Install/Deploy mode\n";
 		$key = "install";
+		$value = 1;
+	} elsif ($arg eq "-uninstall") {
+		$processedArgument = 1;
+		print "Uninstall mode\n";
+		$key = "uninstall";
 		$value = 1;
 	}
 	return ($key, $value);
