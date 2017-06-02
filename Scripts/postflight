@@ -1,3 +1,3 @@
 #!/bin/sh
 
-say Post flight;
+#say Post flight; #on macs this will invoke text-to-speech to easily allow me to know this is running 
