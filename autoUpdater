@@ -225,9 +225,9 @@ sub removeCron {
 	my $execPath = $execDir . "/$thisScript";
 	my $newCron;
 	foreach my $cronEntry (@previousCron) {
-		my $commentString = '## disabled cron entry from uninstall. safe to delete.';
+		my $commentString = '';
 		my $commentHash = '#';
-		$cronEntry =~ /^(.*$execPath -u.*)$/$commentHash $1 $commentString/;
+		$cronEntry =~ s/^(.*$execPath -u.*)$/#\t$1\t## disabled cron entry from uninstall. safe to delete./;
 		$newCron .= $cronEntry;
 	}
 
