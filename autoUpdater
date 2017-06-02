@@ -248,9 +248,9 @@ sub runUninstallScript {
 	if (-e $uninstallScript) {
 		my $fullScriptPath = abs_path($uninstallScript);
 		&runOnSystem($fullScriptPath);
-		print "Autoupdater turned off and uninstall script run. Thank you for using GitAutoUpdate!\n";
+		print "Autoupdater turned off and uninstall script run. You may want to check on the crontab and clean up the disabled entry. Thank you for using GitAutoUpdate!\n";
 	} else {
-		print "No uninstall script found. Autoupdater turned off, but if necessary, please perform any manual cleanup required. Thank you for using GitAutoUpdate!\n";
+		print "No uninstall script found. Autoupdater turned off, but if necessary, please perform any manual cleanup required. You may want to check on the crontab and clean up the disabled entry. Thank you for using GitAutoUpdate!\n";
 	}
 }
 
