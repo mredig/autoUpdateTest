@@ -2,17 +2,22 @@
 use Cwd 'abs_path';
 use File::Basename;
 
+## GitAutoUpdate
+## Copyright 2017 Michael Redig
+## LICENSE: https://github.com/mredig/GitAutoUpdate/blob/master/LICENSE.md
+
+## deployment set
 $debug = 0;
 $originRepo = "https://github.com/mredig/autoUpdateTest.git";
 $cronTimer = "* * * * *"; ## r0-59 means random 0-59
 $preflightScript = "./Scripts/preflight"; #script that will run prior to checking for updates (note the relative location)
 $postflightScript = "./Scripts/postflight"; #script that will run after checking for updates
 $uninstallScript = "./Scripts/uninstall"; #script that will run when uninstall invoked (not implemented)
+$thisScript = "autoUpdater"; #only change for special deployment needs
 
 
 ## dynamic
 $projectName = "";
-$thisScript = &getExecutableName;
 $execDir = &getExecutableDirectory;
 $ENV{'PATH'} .= ":/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin";
 
@@ -207,6 +212,11 @@ sub getExecutableDirectory {
 
 sub getExecutableName {
 	my $name = basename($0);
+
+	if ($name eq "-e"){
+		die "It appears that this was deployed over the internet. Please see documentation at https://github.com/mredig/GitAutoUpdate\n";
+	}
+
 	return $name;
 }
 
