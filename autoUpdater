@@ -33,7 +33,7 @@ sub processArguments {
 	my %processedArguments;
 	for (my $i = 0; $i < scalar(@ARGV); $i++) {
 		my $arg = $ARGV[$i];
-		if ($arg =~ /^-+(\w)/) {
+		if ($arg =~ /^-(-?\w+)/) {
 			$arg = $1;
 			my ($key, $value) = &processArgument($arg, $ARGV[$i + 1]);
 			$processedArguments{$key} = $value;
@@ -68,9 +68,7 @@ sub processArguments {
 		&runPostflightScript;
 	} elsif ($processedArguments{'uninstall'} == 1) {
 		## run uninstall here
-		&chdirToRepo;
-		&removeCron;
-		&runUninstallScript;
+		&uninstallConfirm;
 	}
 
 
@@ -218,6 +216,18 @@ sub deployCleanup {
 }
 
 ## uninstall
+
+sub uninstallConfirm {
+	my $uninstall = &checkyN("Are you sure you want to uninstall?");
+	if ($uninstall) {
+		&chdirToRepo;
+		&removeCron;
+		&runUninstallScript;
+	} else {
+		die "Wow! Be more careful when typing! Jeeze.\n";
+	}
+
+}
 
 sub removeCron {
 	my @previousCron = `crontab -l`;
