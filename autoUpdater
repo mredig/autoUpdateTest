@@ -119,7 +119,7 @@ sub runPostflightScript {
 ## INSTALL AND DEPLOY
 
 sub checkDeploymentValidity {
-	if ($name eq "-e"){
+	if ($thisScript eq "-e"){
 		die "It appears that this was deployed over the internet and not configured to handle this circumstance. Please see documentation at https://github.com/mredig/GitAutoUpdate\n";
 	}
 
