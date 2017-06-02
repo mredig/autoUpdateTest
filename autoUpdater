@@ -33,7 +33,7 @@ sub processArguments {
 	my %processedArguments;
 	for (my $i = 0; $i < scalar(@ARGV); $i++) {
 		my $arg = $ARGV[$i];
-		if ($arg =~ /^-(-?\w+)/) {
+		if ($arg =~ /^-(-?\w+)/) { #fix this line
 			$arg = $1;
 			my ($key, $value) = &processArgument($arg, $ARGV[$i + 1]);
 			$processedArguments{$key} = $value;
