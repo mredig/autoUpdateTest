@@ -33,7 +33,7 @@ sub processArguments {
 	my %processedArguments;
 	for (my $i = 0; $i < scalar(@ARGV); $i++) {
 		my $arg = $ARGV[$i];
-		if ($arg =~ /^-(\w)/) {
+		if ($arg =~ /^-+(\w)/) {
 			$arg = $1;
 			my ($key, $value) = &processArgument($arg, $ARGV[$i + 1]);
 			$processedArguments{$key} = $value;
@@ -225,8 +225,6 @@ sub removeCron {
 	my $execPath = $execDir . "/$thisScript";
 	my $newCron;
 	foreach my $cronEntry (@previousCron) {
-		my $commentString = '';
-		my $commentHash = '#';
 		$cronEntry =~ s/^(.*$execPath -u.*)$/#\t$1\t## disabled cron entry from uninstall. safe to delete./;
 		$newCron .= $cronEntry;
 	}
